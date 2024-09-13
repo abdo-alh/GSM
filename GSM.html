@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cost per m² Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .container h2 {
+            text-align: center;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Cost per m² Calculator</h2>
+        <div class="input-group">
+            <label for="costPerKg">Cost per Kilogram (DH):</label>
+            <input type="number" id="costPerKg" placeholder="Enter cost per kg">
+        </div>
+        <div class="input-group">
+            <label for="gsm">GSM (g/m²):</label>
+            <input type="number" id="gsm" placeholder="Enter GSM">
+        </div>
+        <div class="input-group">
+            <label for="width">Width (m):</label>
+            <input type="number" id="width" placeholder="Enter width in meters" value="1.6">
+        </div>
+        <div class="input-group">
+            <label for="length">Length (m):</label>
+            <input type="number" id="length" placeholder="Enter length in meters" value="800">
+        </div>
+        <button class="button" onclick="calculateCost()">Calculate</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        function calculateCost() {
+            // Get input values
+            const costPerKg = parseFloat(document.getElementById('costPerKg').value);
+            const gsm = parseFloat(document.getElementById('gsm').value);
+            const width = parseFloat(document.getElementById('width').value);
+            const length = parseFloat(document.getElementById('length').value);
+
+            // Calculate cost per m²
+            const weightPerM2 = gsm / 1000; // Convert GSM to kg/m²
+            const costPerM2 = weightPerM2 * costPerKg;
+
+            // Calculate total area
+            const totalArea = width * length;
+
+            // Calculate total cost
+            const totalCost = costPerM2 * totalArea;
+
+            // Display the result
+            document.getElementById('result').innerHTML = `
+                Cost per m²: ${costPerM2.toFixed(3)} DH<br>
+                Total Area: ${totalArea.toFixed(2)} m²<br>
+                Total Cost: ${totalCost.toFixed(2)} DH
+            `;
+        }
+    </script>
+</body>
+</html>
